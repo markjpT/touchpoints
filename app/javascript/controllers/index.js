@@ -2,7 +2,12 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { Application } from "stimulus"
+import { definitionsFromContext } from "stimulus/webpack-helpers"
+
+const application = Application.start()
+const context = require.context("controllers", true, /_controller\.js$/)
+application.load(definitionsFromContext(context))
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
